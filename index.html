@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F5F0;--bg-card:#FFF;--text:#1A1A18;--text-muted:#6B6860;--text-light:#9C978C;--accent:#2B5A4B;--accent-light:#E8F0EC;--accent-hover:#1E4035;--border:#E2DED5;--border-light:#EDEBE4;--error:#A8342A;--error-bg:#FDF2F0;--scale-hover:#F4F2EC;--scale-selected:var(--accent);--scale-selected-text:#FFF;--serif:'Source Serif 4',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif;--radius:8px;--shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.03)}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);color:var(--text);background:var(--bg);min-height:100vh;line-height:1.6}
+.survey-shell{max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.progress-container{position:sticky;top:0;z-index:100;background:var(--bg);padding:1.25rem 0 .75rem}
+.progress-track{height:3px;background:#E2DED5;border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s cubic-bezier(.25,.46,.45,.94)}
+.progress-label{font-size:.75rem;color:var(--text-light);margin-top:.5rem;letter-spacing:.04em;text-transform:uppercase}
+.page{display:none;animation:fadeIn .4s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+h1{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1.2;margin-bottom:.75rem}
+h2{font-family:var(--serif);font-size:1.4rem;font-weight:600;line-height:1.3;margin-bottom:.5rem}
+.subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.65;font-weight:300}
+.page-intro{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-light)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.item-block{padding:1.5rem 0;border-bottom:1px solid var(--border-light)}.item-block:last-child{border-bottom:none}
+.item-block.has-error .item-text{color:var(--error)}.item-block.has-error .scale-bar{background:var(--error-bg)}
+.item-number{font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.5rem;text-align:center}
+.item-text{font-family:var(--serif);font-size:1.1rem;font-weight:400;line-height:1.5;margin-bottom:1rem;text-align:center}
+.scale-bar{display:flex;gap:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.scale-option{flex:1;text-align:center;padding:.7rem .25rem;cursor:pointer;transition:all .15s ease;border-right:1px solid var(--border-light);user-select:none}
+.scale-option:last-child{border-right:none}.scale-option:hover{background:var(--scale-hover)}
+.scale-option.selected{background:var(--scale-selected);border-color:var(--scale-selected)}
+.scale-option.selected+.scale-option{border-left-color:var(--scale-selected)}
+.scale-value{font-weight:500;font-size:.95rem;color:var(--text);line-height:1.2}
+.scale-label{font-size:.65rem;color:var(--text-muted);margin-top:.2rem;line-height:1.25}
+.scale-option.selected .scale-value,.scale-option.selected .scale-label{color:var(--scale-selected-text)}
+.field-group{margin-bottom:1.25rem}
+.field-label{font-size:.85rem;font-weight:500;color:var(--text);margin-bottom:.4rem;display:block}
+.field-label .optional{font-weight:300;color:var(--text-light)}
+.field-input{width:100%;padding:.65rem .85rem;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--sans);font-size:.95rem;color:var(--text);background:var(--bg-card);outline:none}
+.field-input:focus{border-color:var(--accent)}
+select.field-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6860' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.5rem}
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:1rem}
+.btn{font-family:var(--sans);font-size:.9rem;font-weight:500;padding:.75rem 2rem;border-radius:var(--radius);cursor:pointer;border:none;letter-spacing:.01em}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-hover)}.btn-primary:active{transform:scale(.98)}
+.btn-secondary{background:transparent;color:var(--text-muted);border:1px solid var(--border)}.btn-secondary:hover{background:var(--scale-hover);color:var(--text)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.error-banner{background:var(--error-bg);color:var(--error);padding:.75rem 1rem;border-radius:var(--radius);font-size:.85rem;margin-bottom:1rem;display:none;border:1px solid rgba(168,52,42,.15)}
+.error-banner.visible{display:block}
+.welcome-icon{width:48px;height:48px;background:var(--accent-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.welcome-icon svg{width:22px;height:22px;color:var(--accent)}
+.info-box{background:var(--accent-light);border-radius:var(--radius);padding:1rem 1.25rem;margin:1.5rem 0;font-size:.88rem;color:var(--accent-hover);line-height:1.6}
+.thankyou-check{width:64px;height:64px;background:var(--accent-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.thankyou-check svg{width:32px;height:32px;color:var(--accent)}
+.submitting-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,245,240,.92);z-index:1000;align-items:center;justify-content:center;flex-direction:column}
+.submitting-overlay.visible{display:flex}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submitting-text{margin-top:1rem;color:var(--text-muted);font-size:.9rem}
+.consent-check{display:flex;align-items:flex-start;gap:.75rem;margin:1.5rem 0;cursor:pointer}
+.consent-check input[type="checkbox"]{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex-shrink:0}
+.consent-check span{font-size:.9rem;line-height:1.5}
+@media(max-width:600px){.survey-shell{padding:1.25rem 1rem 3rem}h1{font-size:1.6rem}.card{padding:1.25rem 1rem}.scale-label{font-size:.55rem}.scale-value{font-size:.85rem}.scale-option{padding:.6rem .1rem}.btn{padding:.7rem 1.25rem;font-size:.85rem}}
+</style>
+</head>
+<body>
+<div class="survey-shell" id="app"></div>
+<div class="submitting-overlay" id="submitting"><div class="spinner"></div><div class="submitting-text">Submitting your responses…</div></div>
+<script>
+// ============================================================
+//  CONFIGURATION
+// ============================================================
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBSERsuSazVvleaRECUIzPkWnFR8v_Vha-Ltkex1c0HR4wMSXPHOYVav4HuWyHdap9/exec';
+
+const SURVEY_CONFIG = {
+  title: 'Interpersonal Style Inventory',
+  description: 'This survey asks about your comfort with, and tendency toward, various interpersonal behaviours and experiences. There are no right or wrong answers.',
+  consent_text: '',
+  items_per_page: 5,
+  demographics: [],
+  items: [
+    { id:'item_01', text:'How irresponsible are you?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much','Completely'] },
+    { id:'item_02', text:'How comfortable are you being cold-blooded toward another person?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_03', text:"I’m not scared of death threats.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_04', text:'How much do you crave constant action and excitement?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_05', text:'How easy is it for you to dominate social situations?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_06', text:"I’m not afraid to miss my flights.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_07', text:"I don’t care if some person I don’t even know gets killed.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_08', text:'How comfortable are you doing bold things that other people would feel ashamed to do?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_09', text:"I’m not afraid to hurt someone else.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_10', text:"Do you brazenly walk into places you don’t belong, as if you were invited?", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_11', text:"I’m not intimidated by legal threats.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_12', text:'How often do you do crazy things for a thrill?', labels:['Never','Seldom','Sometimes','Quite a bit','Very Often','Always'] },
+    { id:'item_13', text:'When people say that what you did was wrong, how clear is your conscience?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very Much','Completely'] },
+    { id:'item_14', text:'How often do you just approach total strangers in public and charm them for no reason?', labels:['Never','Seldom','Sometimes','Quite a bit','Very Often','Always'] },
+    { id:'item_15', text:"When I apologise, I don’t actually feel very sorry on the inside.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_16', text:'How often do you break rules?', labels:['Never','Seldom','Sometimes','Quite a bit','Very Often','Always'] },
+    { id:'item_17', text:'How willing are you to make an utter fool of yourself in front of an audience of strangers?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much','Completely'] },
+    { id:'item_18', text:"How confidently can you deliver advice when you have no idea what you’re talking about?", labels:['Not at all','Slightly','Somewhat','Quite a bit','Very Much','Completely'] },
+    { id:'item_19', text:"I don’t have much remorse.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_20', text:'How quickly would you recover after cutting off a friend you no longer need?', labels:['Not quickly at all','A little quickly','Somewhat quickly','Quite quickly','Very quickly','Immediately'] },
+    { id:'item_21', text:'How good are you at turning on superficial charm?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very Much','Completely'] },
+    { id:'item_22', text:"I’m a ballsy motherfucker.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_23', text:'How irrelevant does the suffering of other people feel to you?', labels:['Not at all irrelevant','Slightly irrelevant','Somewhat irrelevant','Quite a bit irrelevant','Very much irrelevant','Completely irrelevant'] },
+    { id:'item_24', text:'How fun is it when situations get chaotic and out of control?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_25', text:'To what extent can you talk your way into almost any situation?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very Much','Completely'] },
+    { id:'item_26', text:'My only long-term goal is to get rich or famous somehow.', labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+    { id:'item_27', text:"How free are you to do whatever you want, knowing you won’t feel bad about it later?", labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_28', text:'How many bold things have you done shamelessly in public?', labels:['None','One or two things','A handful of things','Quite a few things','Many things','A great many things'] },
+    { id:'item_29', text:'How emotionally detached are you from the people you call friends?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very Much so','Completely'] },
+    { id:'item_30', text:'How unbearable is the thought of working the same 9-5 job for the rest of your life?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_31', text:'If you committed a serious wrongdoing, how free would you be of any nagging urge to come clean?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_32', text:'Do you borrow money that you never bother paying back?', labels:['Not at all','Slightly','Somewhat','Quite a bit','Very much so','Completely'] },
+    { id:'item_33', text:"I’m not really scared of the consequences of my actions.", labels:['Not at all true','Slightly true','Somewhat true','Quite a bit true','Very true','Completely true'] },
+  ]
+};
+
+// ============================================================
+//  ENGINE
+// ============================================================
+const state={currentPage:0,responses:{},demographics:{},consented:false,startTime:null,pageStartTimes:[],pageTimes:[],respondentId:'R'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ipData:{}};
+
+// Fetch IP + VPN info immediately on load (non-blocking)
+(function(){
+  try {
+    fetch('https://ipwho.is/')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        state.ipData = {
+          ip: d.ip || '',
+          country: d.country || '',
+          region: d.region || '',
+          city: d.city || '',
+          isp: (d.connection && d.connection.isp) || '',
+          is_proxy: (d.security && (d.security.proxy || d.security.vpn || d.security.tor)) || false,
+          is_hosting: (d.security && d.security.hosting) || false
+        };
+      })
+      .catch(function(){state.ipData={ip:'unavailable'}});
+  } catch(e){state.ipData={ip:'unavailable'}}
+})();
+const totalItemPages=Math.ceil(SURVEY_CONFIG.items.length/SURVEY_CONFIG.items_per_page);
+const hasDemographics=SURVEY_CONFIG.demographics.length>0;
+const totalPages=1+(hasDemographics?1:0)+totalItemPages+1;
+function getItemPageStart(){return 1+(hasDemographics?1:0)}
+function getThankYouPage(){return totalPages-1}
+
+function render(){
+  const app=document.getElementById('app'),p=state.currentPage;let html='';
+  if(p>0&&p<getThankYouPage()){
+    const progress=Math.round((p/getThankYouPage())*100);
+    const pageLabel=p<=(hasDemographics?1:0)?'Demographics':'Page '+(p-getItemPageStart()+1)+' of '+totalItemPages;
+    html+='<div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div><div class="progress-label">'+pageLabel+'</div></div>';
+  }
+  if(p===0)html+=renderWelcome();
+  else if(hasDemographics&&p===1)html+=renderDemographics();
+  else if(p>=getItemPageStart()&&p<getThankYouPage())html+=renderItemPage(p-getItemPageStart());
+  else if(p===getThankYouPage())html+=renderThankYou();
+  app.innerHTML=html;attachListeners();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderWelcome(){
+  return '<div class="page active"><div class="welcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div><h1>'+SURVEY_CONFIG.title+'</h1><p class="subtitle">'+SURVEY_CONFIG.description+'</p><div class="info-box">There are '+SURVEY_CONFIG.items.length+' items and it takes approximately 7 minutes.</div><div class="btn-row"><div></div><button class="btn btn-primary" id="btnStart">Begin survey</button></div></div>';
+}
+
+function renderDemographics(){
+  var fields='';
+  SURVEY_CONFIG.demographics.forEach(function(d){
+    var val=state.demographics[d.id]||'';
+    if(d.type==='select'){
+      var opts=d.options.map(function(o){return '<option value="'+o+'" '+(val===o?'selected':'')+'>'+( o||'\u2014 Select \u2014')+'</option>'}).join('');
+      fields+='<div class="field-group"><label class="field-label">'+d.label+' '+(d.required?'':'<span class="optional">(optional)</span>')+'</label><select class="field-input" data-demo="'+d.id+'">'+opts+'</select></div>';
+    }else{
+      fields+='<div class="field-group"><label class="field-label">'+d.label+' '+(d.required?'':'<span class="optional">(optional)</span>')+'</label><input class="field-input" type="'+d.type+'" data-demo="'+d.id+'" value="'+val+'" placeholder="'+(d.placeholder||'')+'"></div>';
+    }
+  });
+  return '<div class="page active"><div class="page-intro"><h2>About you</h2><p class="subtitle">A few brief questions before we begin.</p></div><div class="error-banner" id="demoError">Please complete all required fields.</div><div class="card">'+fields+'</div><div class="btn-row"><button class="btn btn-secondary" id="btnBack">Back</button><button class="btn btn-primary" id="btnNext">Continue</button></div></div>';
+}
+
+function renderItemPage(pageIndex){
+  var start=pageIndex*SURVEY_CONFIG.items_per_page,end=Math.min(start+SURVEY_CONFIG.items_per_page,SURVEY_CONFIG.items.length);
+  var pageItems=SURVEY_CONFIG.items.slice(start,end),itemsHtml='';
+  pageItems.forEach(function(item,i){
+    var globalIndex=start+i,selected=state.responses[item.id],scaleHtml='';
+    item.labels.forEach(function(label,v){
+      var val=v+1;
+      scaleHtml+='<div class="scale-option '+(selected===val?'selected':'')+'" data-item="'+item.id+'" data-value="'+val+'"><div class="scale-value">'+val+'</div><div class="scale-label">'+label+'</div></div>';
+    });
+    itemsHtml+='<div class="item-block" id="block-'+item.id+'"><div class="item-number">Item '+(globalIndex+1)+' of '+SURVEY_CONFIG.items.length+'</div><div class="item-text">'+item.text+'</div><div class="scale-bar">'+scaleHtml+'</div></div>';
+  });
+  var isLast=end>=SURVEY_CONFIG.items.length;
+  return '<div class="page active"><div class="error-banner" id="itemError">Please respond to all items on this page before continuing.</div><div class="card">'+itemsHtml+'</div><div class="btn-row"><button class="btn btn-secondary" id="btnBack">Back</button><button class="btn btn-primary" id="btnNext">'+(isLast?'Submit responses':'Continue')+'</button></div></div>';
+}
+
+function renderThankYou(){
+  return '<div class="page active"><div class="thankyou-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><h1>Thank you</h1><p class="subtitle">Your responses have been recorded. You may now close this page.</p><div class="info-box">Respondent ID: <strong>'+state.respondentId+'</strong><br>Please save this ID in case you need to request data withdrawal.</div><p style="margin-top:1.5rem;font-family:var(--serif);font-style:italic;color:var(--text-muted);font-size:1.05rem;">Hope you\u2019re having fun at work without me bitch! AHAHAHAHA :)</p></div>';
+}
+
+function formatTime(s){var m=Math.floor(s/60),sec=Math.round(s%60);return m>0?m+'m '+sec+'s':sec+'s'}
+
+function attachListeners(){
+  var cb=document.getElementById('consentBox');
+  if(cb)cb.addEventListener('change',function(){state.consented=cb.checked;var b=document.getElementById('btnStart');if(b)b.disabled=!state.consented});
+  var bs=document.getElementById('btnStart');
+  if(bs)bs.addEventListener('click',function(){state.startTime=Date.now();state.pageStartTimes[state.currentPage]=Date.now();recordPageTime();state.currentPage++;state.pageStartTimes[state.currentPage]=Date.now();render()});
+  var bb=document.getElementById('btnBack');
+  if(bb)bb.addEventListener('click',function(){recordPageTime();state.currentPage--;state.pageStartTimes[state.currentPage]=Date.now();render()});
+  var bn=document.getElementById('btnNext');
+  if(bn)bn.addEventListener('click',function(){
+    if(hasDemographics&&state.currentPage===1){if(!validateDemographics())return;saveDemographics()}
+    if(state.currentPage>=getItemPageStart()&&state.currentPage<getThankYouPage()){
+      if(!validateItemPage())return;
+      if(state.currentPage===getThankYouPage()-1){recordPageTime();submitData();return}
+    }
+    recordPageTime();state.currentPage++;state.pageStartTimes[state.currentPage]=Date.now();render();
+  });
+  document.querySelectorAll('.scale-option').forEach(function(opt){
+    opt.addEventListener('click',function(){
+      var id=opt.dataset.item,val=parseInt(opt.dataset.value);state.responses[id]=val;
+      document.querySelectorAll('.scale-option[data-item="'+id+'"]').forEach(function(o){o.classList.remove('selected')});
+      opt.classList.add('selected');
+      var block=document.getElementById('block-'+id);if(block)block.classList.remove('has-error');
+      var pi=state.currentPage-getItemPageStart(),s=pi*SURVEY_CONFIG.items_per_page,e=Math.min(s+SURVEY_CONFIG.items_per_page,SURVEY_CONFIG.items.length);
+      if(SURVEY_CONFIG.items.slice(s,e).every(function(it){return state.responses[it.id]!==undefined})){var err=document.getElementById('itemError');if(err)err.classList.remove('visible')}
+    });
+  });
+  document.querySelectorAll('[data-demo]').forEach(function(el){
+    var handler=function(){state.demographics[el.dataset.demo]=el.value};
+    el.addEventListener('change',handler);el.addEventListener('input',handler);
+  });
+}
+
+function recordPageTime(){
+  var st=state.pageStartTimes[state.currentPage];
+  if(st)state.pageTimes[state.currentPage]=Math.round((Date.now()-st)/100)/10;
+  state.pageStartTimes[state.currentPage]=Date.now();
+}
+
+function validateDemographics(){
+  var err=document.getElementById('demoError');
+  for(var i=0;i<SURVEY_CONFIG.demographics.length;i++){var d=SURVEY_CONFIG.demographics[i];if(d.required&&!state.demographics[d.id]){if(err)err.classList.add('visible');return false}}
+  if(err)err.classList.remove('visible');return true;
+}
+function saveDemographics(){document.querySelectorAll('[data-demo]').forEach(function(el){state.demographics[el.dataset.demo]=el.value})}
+
+function validateItemPage(){
+  var pi=state.currentPage-getItemPageStart(),s=pi*SURVEY_CONFIG.items_per_page,e=Math.min(s+SURVEY_CONFIG.items_per_page,SURVEY_CONFIG.items.length);
+  var items=SURVEY_CONFIG.items.slice(s,e),ok=true;
+  items.forEach(function(item){var bl=document.getElementById('block-'+item.id);if(state.responses[item.id]===undefined){if(bl)bl.classList.add('has-error');ok=false}else{if(bl)bl.classList.remove('has-error')}});
+  if(!ok){var err=document.getElementById('itemError');if(err)err.classList.add('visible')}
+  return ok;
+}
+
+async function submitData() {
+  var overlay = document.getElementById('submitting');
+  overlay.classList.add('visible');
+
+  var totalTime = Math.round((Date.now() - state.startTime) / 100) / 10;
+  var itemPageTimes = [];
+  for (var i = getItemPageStart(); i < getThankYouPage(); i++) {
+    itemPageTimes.push(state.pageTimes[i] || 0);
+  }
+  var payload = {
+    respondent_id: state.respondentId,
+    total_time_seconds: totalTime,
+    page_times: itemPageTimes,
+    ip_address: state.ipData.ip || '',
+    ip_country: state.ipData.country || '',
+    ip_city: state.ipData.city || '',
+    isp: state.ipData.isp || '',
+    is_vpn_or_proxy: (state.ipData.is_proxy || state.ipData.is_hosting) ? 'YES' : 'NO',
+    demographics: state.demographics,
+    responses: state.responses,
+  };
+
+  console.log('Submitting payload:', JSON.stringify(payload, null, 2));
+
+  function goToThankYou() {
+    overlay.classList.remove('visible');
+    state.currentPage = getThankYouPage();
+    render();
+  }
+
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+    console.log('SURVEY DATA (no endpoint configured):', JSON.stringify(payload, null, 2));
+    goToThankYou();
+    return;
+  }
+
+  // Use a hidden form + iframe — bypasses CORS entirely
+  try {
+    var iframe = document.createElement('iframe');
+    iframe.name = 'survey_submit_frame';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GOOGLE_SCRIPT_URL;
+    form.target = 'survey_submit_frame';
+    form.style.display = 'none';
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(payload);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    // Always advance to thank you after 2 seconds
+    // (Google Apps Script redirects, so we can't reliably detect completion)
+    setTimeout(function() {
+      try {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      } catch(e) {}
+      goToThankYou();
+    }, 2000);
+  } catch (err) {
+    console.error('Submit error:', err);
+    console.log('SURVEY DATA (fallback):', JSON.stringify(payload, null, 2));
+    goToThankYou();
+  }
+}
+
+render();
+</script>
+</body>
+</html>
