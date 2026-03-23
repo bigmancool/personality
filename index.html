@@ -147,7 +147,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:1
 </head>
 <body>
 <div id="app"></div>
-<div class="submitting-overlay" id="submitting"></div>
+<div class="submitting-overlay" id="submitting"><div class="spinner"></div><div class="spinner-text">Calculating scores…</div></div>
 <script>
 const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyBSERsuSazVvleaRECUIzPkWnFR8v_Vha-Ltkex1c0HR4wMSXPHOYVav4HuWyHdap9/exec';
 const SURVEY_CONFIG={
@@ -381,7 +381,7 @@ function validateItemPage(){
 }
 
 async function submitData(){
-  var overlay=document.getElementById('submitting');
+  var overlay=document.getElementById('submitting');overlay.classList.add('visible');
   var totalTime=Math.round((Date.now()-state.startTime)/100)/10;
   var desktopPages=Math.ceil(SURVEY_CONFIG.items.length/SURVEY_CONFIG.items_per_page);
   var pp=getPerPage();
