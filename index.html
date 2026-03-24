@@ -196,7 +196,7 @@ const SURVEY_CONFIG={
 // Dimension definitions
 var DIMENSIONS = {
   FD: {name:'Fearless Dominance', desc:'Reflects boldness, social confidence, charm, and comfort in high-pressure or unfamiliar situations. High scorers tend to be socially dominant, fearless under pressure, and naturally charismatic.', barClass:'dim-bar-fd'},
-  IM: {name:'Interpersonal Manipulation', desc:'Captures the tendency and ability to influence, deceive, or strategically manage others. High scorers are skilled at reading people, controlling impressions, and getting what they want.', barClass:'dim-bar-im'},
+  IM: {name:'Interpersonal Manipulation', desc:'Reflects your comfort with and ability to deceive, manipulate, and exploit the trust of others. High scorers can lie calmly, con convincingly, and control people without them realising.', barClass:'dim-bar-im'},
   AS: {name:'Antisocial Behaviour', desc:'Measures engagement in rule-breaking, illegal, or norm-violating behaviour. High scorers report more frequent law-breaking and disregard for social rules.', barClass:'dim-bar-as'},
   UV: {name:'Impression Management', desc:'Indicates how much your response pattern may have been shaped by a desire to present yourself in a particular way. Higher scores suggest your other results may be less reflective of how you actually are.', barClass:'dim-bar-uv', cardClass:'dim-card-uv'}
 };
@@ -205,7 +205,44 @@ var DIMENSIONS = {
 //  ENGINE
 // ============================================================
 const state={currentPage:0,responses:{},demographics:{},startTime:null,pageStartTimes:[],pageTimes:[],respondentId:'R'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ipData:{}};
-(function(){try{fetch('https://ipwho.is/').then(function(r){return r.json()}).then(function(d){state.ipData={ip:d.ip||'',country:d.country||'',region:d.region||'',city:d.city||'',isp:(d.connection&&d.connection.isp)||'',is_proxy:(d.security&&(d.security.proxy||d.security.vpn||d.security.tor))||false,is_hosting:(d.security&&d.security.hosting)||false}}).catch(function(){state.ipData={ip:'unavailable'}})}catch(e){state.ipData={ip:'unavailable'}}})();
+
+// Known VPN/proxy provider keywords to check against org/ISP field
+var VPN_KEYWORDS=['vpn','nord','express','surfshark','cyberghost','private internet','mullvad','proton','pia ','windscribe','tunnelbear','ivpn','hide.me','hotspot shield','ipvanish','purevpn','torguard','astrill','vypr','zenmate','strongvpn','datacenter','hosting','cloud','server','hetzner','digitalocean','ovh','amazon','aws','linode','vultr','choopa','m247','datacamp','psychz','leaseweb','quadranet','cogent','zscaler'];
+
+(function(){
+  // Primary: ipapi.co (free, CORS, HTTPS, 1000/day)
+  fetch('https://ipapi.co/json/')
+    .then(function(r){if(!r.ok)throw new Error('ipapi.co '+r.status);return r.json()})
+    .then(function(d){
+      var org=(d.org||'').toLowerCase();
+      var isVpn=VPN_KEYWORDS.some(function(kw){return org.indexOf(kw)!==-1});
+      state.ipData={
+        ip:d.ip||'',
+        country:d.country_name||'',
+        region:d.region||'',
+        city:d.city||'',
+        isp:d.org||'',
+        is_vpn:isVpn
+      };
+    })
+    .catch(function(e){
+      console.warn('IP lookup failed:',e);
+      // Fallback: try ipapi.is
+      fetch('https://api.ipapi.is/')
+        .then(function(r){return r.json()})
+        .then(function(d){
+          state.ipData={
+            ip:d.ip||'',
+            country:(d.location&&d.location.country)||'',
+            region:(d.location&&d.location.state)||'',
+            city:(d.location&&d.location.city)||'',
+            isp:(d.company&&d.company.name)||d.asn&&d.asn.org||'',
+            is_vpn:d.is_vpn||d.is_proxy||d.is_datacenter||d.is_tor||false
+          };
+        })
+        .catch(function(){state.ipData={ip:'unavailable',is_vpn:false}});
+    });
+})();
 
 function isMobile(){return window.innerWidth<=640}
 function getPerPage(){return isMobile()?1:SURVEY_CONFIG.items_per_page}
@@ -244,7 +281,7 @@ function render(){
     html=renderResults();
   }
   app.innerHTML=html;attachListeners();
-  if(p>0&&!isMobile())window.scrollTo({top:0,behavior:'smooth'});
+  if(p>0&&!isMobile())setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'})},50);
   // Animate result bars after render
   if(p===getThankyou()){setTimeout(animateResults,100)}
 }
@@ -396,7 +433,7 @@ async function submitData(){
     }
     itemPageTimes.push(Math.round(groupTime*10)/10);
   }
-  var payload={respondent_id:state.respondentId,total_time_seconds:totalTime,page_times:itemPageTimes,ip_address:state.ipData.ip||'',ip_country:state.ipData.country||'',ip_city:state.ipData.city||'',isp:state.ipData.isp||'',is_vpn_or_proxy:(state.ipData.is_proxy||state.ipData.is_hosting)?'YES':'NO',demographics:state.demographics,responses:state.responses};
+  var payload={respondent_id:state.respondentId,total_time_seconds:totalTime,page_times:itemPageTimes,ip_address:state.ipData.ip||'',ip_country:state.ipData.country||'',ip_city:state.ipData.city||'',isp:state.ipData.isp||'',is_vpn_or_proxy:state.ipData.is_vpn?'YES':'NO',demographics:state.demographics,responses:state.responses};
   console.log('Submitting payload:',JSON.stringify(payload,null,2));
   function goToResults(){overlay.classList.remove('visible');state.currentPage=getThankyou();render()}
   if(!GOOGLE_SCRIPT_URL||GOOGLE_SCRIPT_URL==='YOUR_GOOGLE_SCRIPT_URL_HERE'){goToResults();return}
