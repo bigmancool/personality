@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Self-Discovery Index</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,8 +11,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--primary:#5B4DC7;--primary-dark:#4338A0;--primary-light:#EDE9FF;--accent:#E8567F;--bg:#FAFAFE;--bg-card:#FFF;--text:#1E1B3A;--text-muted:#6E6A85;--text-light:#A09DB5;--border:#E8E6F0;--border-light:#F0EEF6;--error:#D93B3B;--error-bg:#FEF2F2;--sel-border:#F09030;--sel-text:#D06808;--heading:'Fraunces',Georgia,serif;--body:'Source Sans 3',-apple-system,sans-serif;--radius:12px;--radius-lg:20px;--shadow-sm:0 1px 2px rgba(30,27,58,.04);--shadow:0 2px 8px rgba(30,27,58,.06),0 0 1px rgba(30,27,58,.08)}
 html{font-size:16px;-webkit-font-smoothing:antialiased}
-body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:100vh;min-height:100svh;line-height:1.6;overflow:hidden}
-body.on-results{overflow:auto}
+body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:100vh;min-height:100svh;line-height:1.6;overflow:hidden;touch-action:manipulation;-webkit-overflow-scrolling:auto}
+body.on-results{overflow:auto;touch-action:auto}
 .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;background:linear-gradient(160deg,#F5F3FF 0%,#FAFAFE 40%,#FFF0F4 100%);position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(91,77,199,.06) 0%,transparent 70%);top:-200px;right:-100px;pointer-events:none}
 .hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,86,127,.05) 0%,transparent 70%);bottom:-100px;left:-50px;pointer-events:none}
@@ -41,9 +41,11 @@ body.on-results{overflow:auto}
 .tri-shape{position:relative;height:28px;margin:0 18px;overflow:hidden;opacity:0;animation:triGrow .8s ease 1.15s forwards}
 @keyframes triGrow{from{opacity:0;clip-path:polygon(0% 100%,0% 100%,0% 100%)}to{opacity:1;clip-path:polygon(0% 100%,100% 100%,100% 0%)}}
 .tri-shape-inner{width:100%;height:100%;background:linear-gradient(90deg,var(--primary-light),var(--primary));border-radius:0 4px 4px 0;clip-path:polygon(0% 100%,100% 100%,100% 0%)}
-.tri-labels{display:flex;justify-content:space-between;margin-top:.6rem}
-.tri-label-l,.tri-label-r{font-size:.75rem;font-weight:500;color:var(--text-light);opacity:0;animation:numIn .35s ease 1.35s forwards}
-.tri-label-r{color:var(--primary);font-weight:600}
+.tri-labels{display:flex;margin-top:.6rem}
+.tri-label-l,.tri-label-m,.tri-label-r{font-size:.75rem;font-weight:500;color:var(--text-light);opacity:0;animation:numIn .35s ease 1.35s forwards;flex:1}
+.tri-label-l{text-align:left}
+.tri-label-m{text-align:center}
+.tri-label-r{text-align:right;color:var(--primary);font-weight:600}
 .explainer-note{font-size:.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:2rem;opacity:0;animation:numIn .4s ease 1.55s forwards}
 .explainer-note strong{color:var(--text);font-weight:600}
 .survey-shell{max-width:700px;margin:0 auto;padding:0 1.5rem 0;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
@@ -159,13 +161,13 @@ const SURVEY_CONFIG={
     {id:'CA1',factor:'CR',text:'…have you always cycled through different friendships because you can’t feel emotional bonds?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IPM1',factor:'IM',text:'…can you get others to do what you want without them realising?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IRR1',factor:'IU',text:'…do you avoid paying back money you borrow?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
-    {id:'CA2',factor:'CR',text:'…can you do whatever you want without feeling guilty about it?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA2',factor:'CR',text:'…can you do what you want without feeling guilty about it?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'ANTI1',factor:'AS',text:'…do you break the law?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'FD2',factor:'FD',text:'…can you convince people of anything?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'SS2',factor:'ISS',text:'…are you rebellious?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IPM2',factor:'IM',text:'…do you hide your true intentions behind a friendly and harmless face?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IRR2',factor:'IU',text:'…do you leave unfinished tasks for someone else to deal with?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
-    {id:'FD3',factor:'FD',text:'…are you intimidated around high-profile people?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD3',factor:'FD',reverse:true,text:'…are you intimidated around high-profile people?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'CA3',factor:'CR',text:'…do other people’s problems feel irrelevant to you?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'SS3',factor:'ISS',text:'…do you like wild, out of control parties?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'ANTI2',factor:'AS',text:'…have you committed property damage in a rage?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
@@ -308,7 +310,7 @@ function renderWelcome(){
 }
 
 function renderExplainer(){
-  return '<div class="explainer"><div class="explainer-card"><h2>How the scale works</h2><p class="explainer-sub">Each question uses a simple scale from <strong>0</strong> to <strong>4</strong>.</p><div class="explainer-demo"><div class="explainer-label">\u201cTo what extent\u2026?\u201d</div><div class="tri-container"><div class="tri-numbers"><div class="tri-num">0</div><div class="tri-num">1</div><div class="tri-num">2</div><div class="tri-num">3</div><div class="tri-num">4</div></div><div class="tri-shape"><div class="tri-shape-inner"></div></div><div class="tri-labels"><span class="tri-label-l">Not at all</span><span class="tri-label-r">Completely</span></div></div></div><p class="explainer-note">The scale measures <strong>how much</strong> of something applies to you \u2014 not whether you agree or disagree. Zero means none at all, four means as much as possible.</p><button class="btn-hero" id="btnGotIt">Got it, let\u2019s go</button></div></div>';
+  return '<div class="explainer"><div class="explainer-card"><h2>How the scale works</h2><p class="explainer-sub">The scale works like a thermometer \u2014 it is designed to measure the <strong>presence</strong> of certain traits and their intensity. It does not measure how absent they are. As such, there is no neutral option \u2014 a middle answer means the trait applies moderately.</p><div class="explainer-demo"><div class="explainer-label">\u201cTo what extent do you\u2026?\u201d</div><div class="tri-container"><div class="tri-numbers"><div class="tri-num">0</div><div class="tri-num">1</div><div class="tri-num">2</div><div class="tri-num">3</div><div class="tri-num">4</div></div><div class="tri-shape"><div class="tri-shape-inner"></div></div><div class="tri-labels"><span class="tri-label-l">Not at all</span><span class="tri-label-m">Moderately</span><span class="tri-label-r">Completely</span></div></div></div><button class="btn-hero" id="btnGotIt">Got it, let\u2019s go</button></div></div>';
 }
 
 function renderItemPage(idx){
@@ -362,7 +364,8 @@ function calcScores(){
   SURVEY_CONFIG.items.forEach(function(item){
     if(CORE_FACTORS.indexOf(item.factor)===-1)return;
     var raw=state.responses[item.id];if(raw===undefined)return;
-    scores[item.factor]+=raw;counts[item.factor]++;
+    var val=item.reverse?(4-raw):raw;
+    scores[item.factor]+=val;counts[item.factor]++;
   });
   var pcts={};
   CORE_FACTORS.forEach(function(f){pcts[f]=counts[f]>0?Math.round((scores[f]/(counts[f]*4))*100):0});
