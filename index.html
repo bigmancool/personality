@@ -6,13 +6,14 @@
 <title>Self-Discovery Index</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--primary:#5B4DC7;--primary-dark:#4338A0;--primary-light:#EDE9FF;--accent:#E8567F;--bg:#FAFAFE;--bg-card:#FFF;--text:#1E1B3A;--text-muted:#6E6A85;--text-light:#A09DB5;--border:#E8E6F0;--border-light:#F0EEF6;--error:#D93B3B;--error-bg:#FEF2F2;--green:#2EAA6F;--green-light:#ECFDF5;--heading:'Fraunces',Georgia,serif;--body:'Outfit',-apple-system,sans-serif;--radius:12px;--radius-lg:20px;--shadow-sm:0 1px 2px rgba(30,27,58,.04);--shadow:0 2px 8px rgba(30,27,58,.06),0 0 1px rgba(30,27,58,.08)}
-html{font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:100vh;line-height:1.6}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;background:linear-gradient(160deg,#F5F3FF 0%,#FAFAFE 40%,#FFF0F4 100%);position:relative;overflow:hidden}
+:root{--primary:#5B4DC7;--primary-dark:#4338A0;--primary-light:#EDE9FF;--accent:#E8567F;--bg:#FAFAFE;--bg-card:#FFF;--text:#1E1B3A;--text-muted:#6E6A85;--text-light:#A09DB5;--border:#E8E6F0;--border-light:#F0EEF6;--error:#D93B3B;--error-bg:#FEF2F2;--sel-border:#F09030;--sel-text:#D06808;--heading:'Fraunces',Georgia,serif;--body:'Source Sans 3',-apple-system,sans-serif;--radius:12px;--radius-lg:20px;--shadow-sm:0 1px 2px rgba(30,27,58,.04);--shadow:0 2px 8px rgba(30,27,58,.06),0 0 1px rgba(30,27,58,.08)}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:100vh;min-height:100svh;line-height:1.6;overflow:hidden}
+body.on-results{overflow:auto}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;background:linear-gradient(160deg,#F5F3FF 0%,#FAFAFE 40%,#FFF0F4 100%);position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(91,77,199,.06) 0%,transparent 70%);top:-200px;right:-100px;pointer-events:none}
 .hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,86,127,.05) 0%,transparent 70%);bottom:-100px;left:-50px;pointer-events:none}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--primary-light);color:var(--primary);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.45rem 1rem;border-radius:100px;margin-bottom:2rem}
@@ -26,415 +27,414 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);min-height:1
 .btn-hero{font-family:var(--body);font-size:1.05rem;font-weight:600;padding:1rem 2.8rem;border-radius:100px;border:none;cursor:pointer;color:#fff;background:var(--primary);box-shadow:0 4px 14px rgba(91,77,199,.35);transition:all .2s ease}
 .btn-hero:hover{background:var(--primary-dark);box-shadow:0 6px 20px rgba(91,77,199,.4);transform:translateY(-1px)}
 .btn-hero:active{transform:translateY(0)}
-.survey-shell{max-width:700px;margin:0 auto;padding:0 1.5rem 4rem}
-.progress-container{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,var(--bg) 70%,transparent);padding:1.25rem 0 1.5rem}
+.explainer{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;background:var(--bg)}
+.explainer-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2.5rem 2rem;max-width:540px;width:100%;box-shadow:var(--shadow);animation:fadeIn .5s ease}
+.explainer h2{font-family:var(--heading);font-size:1.6rem;font-weight:700;margin-bottom:.5rem}
+.explainer-sub{font-size:1rem;color:var(--text-muted);font-weight:300;line-height:1.65;margin-bottom:2rem}
+.explainer-label{font-family:var(--heading);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:1.25rem;font-style:italic}
+.explainer-demo{margin-bottom:2rem}
+.tri-container{position:relative;padding:0 .5rem}
+.tri-numbers{display:flex;justify-content:space-between;margin-bottom:.6rem;position:relative;z-index:2}
+.tri-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;color:var(--text-light);background:var(--border-light);border:2px solid var(--border);opacity:0;animation:numIn .35s ease forwards}
+.tri-num:nth-child(1){animation-delay:.3s}.tri-num:nth-child(2){animation-delay:.45s}.tri-num:nth-child(3){animation-delay:.6s}.tri-num:nth-child(4){animation-delay:.75s}.tri-num:nth-child(5){animation-delay:.9s}
+@keyframes numIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tri-shape{position:relative;height:28px;margin:0 18px;overflow:hidden;opacity:0;animation:triGrow .8s ease 1.15s forwards}
+@keyframes triGrow{from{opacity:0;clip-path:polygon(0% 100%,0% 100%,0% 100%)}to{opacity:1;clip-path:polygon(0% 100%,100% 100%,100% 0%)}}
+.tri-shape-inner{width:100%;height:100%;background:linear-gradient(90deg,var(--primary-light),var(--primary));border-radius:0 4px 4px 0;clip-path:polygon(0% 100%,100% 100%,100% 0%)}
+.tri-labels{display:flex;justify-content:space-between;margin-top:.6rem}
+.tri-label-l,.tri-label-r{font-size:.75rem;font-weight:500;color:var(--text-light);opacity:0;animation:numIn .35s ease 1.35s forwards}
+.tri-label-r{color:var(--primary);font-weight:600}
+.explainer-note{font-size:.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:2rem;opacity:0;animation:numIn .4s ease 1.55s forwards}
+.explainer-note strong{color:var(--text);font-weight:600}
+.survey-shell{max-width:700px;margin:0 auto;padding:0 1.5rem 0;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.progress-container{padding:1.25rem 0 .75rem;flex-shrink:0}
 .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
 .progress-title{font-size:.78rem;font-weight:600;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase}
 .progress-pct{font-size:.78rem;font-weight:600;color:var(--primary)}
 .progress-track{height:6px;background:var(--border-light);border-radius:100px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:100px;transition:width .6s cubic-bezier(.25,.46,.45,.94)}
-.page{display:none;animation:fadeUp .45s ease}.page.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.item-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.25rem;box-shadow:var(--shadow-sm);transition:border-color .2s,box-shadow .2s}
-.item-card:hover{box-shadow:var(--shadow)}
-.item-card.has-error{border-color:var(--error);background:var(--error-bg)}
-.item-card.answered{border-color:rgba(91,77,199,.2)}
-.item-counter{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:.6rem;text-align:center}
-.item-question{font-family:var(--heading);font-size:1.2rem;font-weight:600;line-height:1.45;color:var(--text);text-align:center;margin-bottom:1.5rem}
-.scale-wrap{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.scale-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:.85rem .3rem;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;transition:all .15s ease;user-select:none}
-.scale-btn:hover{border-color:var(--primary);background:var(--primary-light)}
-.scale-btn.selected{border-color:var(--primary);background:var(--primary)}
-.scale-num{font-weight:600;font-size:1rem;color:var(--text);transition:color .15s}
-.scale-lbl{font-size:.62rem;font-weight:500;color:var(--text-muted);text-align:center;line-height:1.25;transition:color .15s}
-.scale-btn.selected .scale-num,.scale-btn.selected .scale-lbl{color:#fff}
-.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:1rem}
+.extent-header{font-family:var(--body);font-size:1.6rem;font-weight:600;text-align:center;color:var(--text);margin:0 0 .15rem;flex-shrink:0}
+.extent-header.hidden{display:none}
+.extent-header.first-load{opacity:0;animation:fadeIn .4s ease .5s forwards}
+.slide-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.text-section{flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+.scale-section{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:.75rem}
+.question-slide{overflow:hidden}
+.question-slide.first-load{opacity:0;animation:fadeIn .4s ease 1s forwards}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideInRight{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideInLeft{from{transform:translateX(-80px);opacity:0}to{transform:translateX(0);opacity:1}}
+.slide-fwd{animation:slideInRight .25s ease}
+.slide-bwd{animation:slideInLeft .25s ease}
+.item-question{font-family:var(--body);font-size:1.1rem;font-weight:500;line-height:1.5;color:var(--text);text-align:center;margin-bottom:.75rem}
+.item-question-special{font-family:var(--body);font-size:.95rem;font-weight:400;line-height:1.5;color:var(--text-muted);text-align:center;margin-bottom:.35rem;font-style:italic}
+.item-question-special-main{font-family:var(--body);font-size:1.1rem;font-weight:500;line-height:1.5;color:var(--text);text-align:center;margin-bottom:.75rem}
+.scale-wrap{display:flex;flex-direction:column;gap:6px;max-width:400px;margin:0 auto;width:100%}
+.scale-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:.7rem 1.25rem;border:2px solid var(--border);border-radius:var(--radius);background:var(--bg);cursor:pointer;transition:border-color .15s;user-select:none;position:relative;overflow:hidden;z-index:0}
+.scale-btn::before{content:'';position:absolute;top:0;left:0;height:100%;width:0;z-index:-1;border-radius:inherit;transition:width .4s cubic-bezier(.25,.46,.45,.94)}
+.scale-btn[data-value="0"]::before{background:#A0C8F0}
+.scale-btn[data-value="1"]::before{background:linear-gradient(90deg,#E4F0FF,#D0E4FF)}
+.scale-btn[data-value="2"]::before{background:linear-gradient(90deg,#E4F0FF,#C6DEFF)}
+.scale-btn[data-value="3"]::before{background:linear-gradient(90deg,#E4F0FF,#B8D6FA)}
+.scale-btn[data-value="4"]::before{background:linear-gradient(90deg,#E4F0FF,#AACEF5)}
+.scale-btn:hover{border-color:var(--sel-border)}
+.scale-btn.selected{border-color:var(--sel-border);background:var(--bg)}
+.scale-btn.selected[data-value="0"]::before{width:2%}
+.scale-btn.selected[data-value="1"]::before{width:25%}
+.scale-btn.selected[data-value="2"]::before{width:50%}
+.scale-btn.selected[data-value="3"]::before{width:75%}
+.scale-btn.selected[data-value="4"]::before{width:100%}
+.scale-num{font-weight:600;font-size:.95rem;color:var(--text);transition:color .15s}
+.scale-lbl{font-size:.95rem;font-weight:400;color:var(--text-muted);line-height:1.3;transition:color .15s}
+.scale-btn.selected .scale-num{color:var(--sel-text)}
+.scale-btn.selected .scale-lbl{color:var(--sel-text)}
+.nav-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 1.5rem;flex-shrink:0;gap:1rem}
 .btn-nav{font-family:var(--body);font-size:.92rem;font-weight:600;padding:.8rem 2rem;border-radius:100px;cursor:pointer;border:none;transition:all .15s ease}
 .btn-next{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(91,77,199,.25)}
 .btn-next:hover{background:var(--primary-dark);transform:translateY(-1px)}.btn-next:active{transform:translateY(0)}
 .btn-back{background:transparent;color:var(--text-muted);border:1.5px solid var(--border)}
 .btn-back:hover{background:var(--primary-light);color:var(--primary);border-color:var(--primary)}
-.error-msg{background:var(--error-bg);color:var(--error);padding:.75rem 1.1rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;margin-bottom:1.25rem;display:none;border:1px solid rgba(217,59,59,.15);text-align:center}
+.error-msg{background:var(--error-bg);color:var(--error);padding:.65rem 1rem;border-radius:var(--radius);font-size:.82rem;font-weight:500;margin-bottom:.5rem;display:none;border:1px solid rgba(217,59,59,.15);text-align:center}
 .error-msg.visible{display:block}
+.results{max-width:640px;margin:0 auto;padding:2.5rem 1.5rem 4rem;animation:fadeIn .5s ease}
+.results h1{font-family:var(--heading);font-size:2rem;font-weight:700;text-align:center;margin-bottom:.5rem}
+.results-sub{text-align:center;font-size:1rem;color:var(--text-muted);font-weight:300;margin-bottom:2.5rem;line-height:1.6}
+.dim-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem 1.75rem;margin-bottom:.85rem;box-shadow:var(--shadow-sm)}
+.dim-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
+.dim-name{font-family:var(--heading);font-size:1.05rem;font-weight:600}
+.dim-pct{font-size:1.05rem;font-weight:700;color:var(--primary)}
+.dim-desc{font-size:.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:.85rem}
+.dim-bar-track{height:8px;background:var(--border-light);border-radius:100px;overflow:hidden}
+.dim-bar-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
+.dim-bar-fd{background:linear-gradient(90deg,#5B4DC7,#7B6FE0)}
+.dim-bar-im{background:linear-gradient(90deg,#E8567F,#F08BA5)}
+.dim-bar-cr{background:linear-gradient(90deg,#8B5CF6,#A78BFA)}
+.dim-bar-iss{background:linear-gradient(90deg,#D97B2B,#F0A854)}
+.dim-bar-iu{background:linear-gradient(90deg,#0EA5E9,#67D4F8)}
+.dim-bar-as{background:linear-gradient(90deg,#DC2626,#F87171)}
 .submitting-overlay{display:none;position:fixed;inset:0;background:rgba(250,250,254,.92);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;flex-direction:column}
 .submitting-overlay.visible{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner-text{margin-top:1rem;color:var(--text-muted);font-size:.9rem;font-weight:500}
-/* Explainer */
-.explainer{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;background:var(--bg)}
-.explainer-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2.5rem 2rem;max-width:540px;width:100%;box-shadow:var(--shadow);animation:fadeUp .5s ease}
-.explainer h2{font-family:var(--heading);font-size:1.6rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
-.explainer-sub{font-size:1rem;color:var(--text-muted);font-weight:300;line-height:1.65;margin-bottom:2rem}
-.explainer-demo{margin-bottom:2rem}
-.explainer-label{font-family:var(--heading);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:1.25rem;font-style:italic}
-.tri-container{position:relative;padding:0 .5rem}
-.tri-numbers{display:flex;justify-content:space-between;margin-bottom:.6rem;position:relative;z-index:2}
-.tri-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;color:var(--text-light);background:var(--border-light);border:2px solid var(--border);opacity:0;animation:numIn .35s ease forwards}
-.tri-num:nth-child(1){animation-delay:.3s}.tri-num:nth-child(2){animation-delay:.45s}.tri-num:nth-child(3){animation-delay:.6s}.tri-num:nth-child(4){animation-delay:.75s}.tri-num:nth-child(5){animation-delay:.9s}.tri-num:nth-child(6){animation-delay:1.05s}
-@keyframes numIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.tri-shape{position:relative;height:28px;margin:0 18px;overflow:hidden;opacity:0;animation:triGrow .8s ease 1.3s forwards}
-@keyframes triGrow{from{opacity:0;clip-path:polygon(0% 100%,0% 100%,0% 100%)}to{opacity:1;clip-path:polygon(0% 100%,100% 100%,100% 0%)}}
-.tri-shape-inner{width:100%;height:100%;background:linear-gradient(90deg,var(--primary-light),var(--primary));border-radius:0 4px 4px 0;clip-path:polygon(0% 100%,100% 100%,100% 0%)}
-.tri-labels{display:flex;justify-content:space-between;margin-top:.6rem}
-.tri-label-l,.tri-label-r{font-size:.75rem;font-weight:500;color:var(--text-light);opacity:0;animation:numIn .35s ease 1.5s forwards}
-.tri-label-r{color:var(--primary);font-weight:600}
-.explainer-note{font-size:.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:2rem;opacity:0;animation:numIn .4s ease 1.7s forwards}
-.explainer-note strong{color:var(--text);font-weight:600}
-/* Results page */
-.results{max-width:640px;margin:0 auto;padding:2.5rem 1.5rem 4rem;animation:fadeUp .5s ease}
-.results h1{font-family:var(--heading);font-size:2rem;font-weight:700;text-align:center;margin-bottom:.5rem}
-.results-sub{text-align:center;font-size:1rem;color:var(--text-muted);font-weight:300;margin-bottom:2.5rem;line-height:1.6}
-.dim-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem 2rem;margin-bottom:1rem;box-shadow:var(--shadow-sm)}
-.dim-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.dim-name{font-family:var(--heading);font-size:1.1rem;font-weight:600}
-.dim-pct{font-size:1.1rem;font-weight:700;color:var(--primary)}
-.dim-desc{font-size:.82rem;color:var(--text-muted);line-height:1.5;margin-bottom:1rem}
-.dim-bar-track{height:10px;background:var(--border-light);border-radius:100px;overflow:hidden}
-.dim-bar-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
-.dim-bar-fd{background:linear-gradient(90deg,#5B4DC7,#7B6FE0)}
-.dim-bar-im{background:linear-gradient(90deg,#E8567F,#F08BA5)}
-.dim-bar-as{background:linear-gradient(90deg,#D97B2B,#F0A854)}
-.dim-bar-uv{background:linear-gradient(90deg,#2EAA6F,#5DCAA0)}
-.dim-card-uv{border-left:3px solid var(--green)}
-.results-id{text-align:center;margin-top:2rem;font-size:.82rem;color:var(--text-light)}
-.results-id strong{color:var(--text-muted)}
-/* Mobile */
 @media(max-width:640px){
-  body{overflow:hidden;height:100svh}
-  .hero{padding:1.5rem 1.25rem;min-height:100svh}
-  .hero h1{font-size:1.85rem}
-  .hero-sub{font-size:1rem}
+  .hero{padding:1.5rem 1.25rem}
+  .hero h1{font-size:1.85rem}.hero-sub{font-size:1rem}
   .hero-badge{font-size:.72rem;margin-bottom:1.5rem}
   .hero-meta{flex-direction:column;gap:.5rem;margin:1.5rem 0 2rem}
   .btn-hero{padding:.9rem 2.2rem;font-size:1rem;width:100%;max-width:320px}
-  .survey-shell{padding:0 .75rem 0;min-height:100svh;display:flex;flex-direction:column}
-  .progress-container{padding:1rem .25rem .75rem;flex-shrink:0}
-  .progress-title,.progress-pct{font-size:.72rem}
-  .page.active{flex:1;display:flex;flex-direction:column;justify-content:center}
-  .item-card{padding:1.25rem 1rem;margin-bottom:0;border-radius:14px}
-  .item-counter{font-size:.66rem}
-  .item-question{font-size:1.05rem;margin-bottom:1.25rem}
-  .scale-btn{padding:.7rem .15rem;gap:4px}
-  .scale-num{font-size:.88rem}
-  .scale-lbl{font-size:.52rem;line-height:1.2}
-  .nav-row{margin-top:1.25rem;padding-bottom:1.5rem;flex-shrink:0}
-  .btn-nav{padding:.75rem 1.5rem;font-size:.88rem}
-  .error-msg{font-size:.82rem;padding:.65rem .9rem}
-  .explainer{padding:1.5rem 1.25rem;min-height:100svh}
+  .survey-shell{padding:0 .75rem 0}
+  .extent-header{font-size:1.4rem}
+  .item-question{font-size:1.05rem}
+  .scale-btn{padding:.6rem 1rem}
+  .scale-num{font-size:.88rem}.scale-lbl{font-size:.88rem}
+  .btn-nav{padding:.7rem 1.5rem;font-size:.85rem}
+  .explainer{padding:1.5rem 1.25rem}
   .explainer-card{padding:1.75rem 1.25rem}
-  .explainer h2{font-size:1.35rem}
-  .explainer-sub{font-size:.92rem}
-  .explainer-label{font-size:.92rem}
   .tri-num{width:30px;height:30px;font-size:.78rem}
-  .tri-label-l,.tri-label-r{font-size:.68rem}
-  .explainer-note{font-size:.82rem}
   .results{padding:1.5rem 1rem 3rem}
-  body.on-results{overflow:auto;height:auto}
   .results h1{font-size:1.6rem}
-  .dim-card{padding:1.25rem 1rem}
-  .dim-name{font-size:1rem}
+  .dim-card{padding:1.1rem .9rem}.dim-name{font-size:.95rem}
 }
 @media(max-width:380px){
   .hero h1{font-size:1.6rem}
-  .item-question{font-size:.98rem}
-  .scale-btn{padding:.6rem .1rem}
-  .scale-lbl{font-size:.48rem}
-  .scale-num{font-size:.82rem}
+  .extent-header{font-size:1.2rem}
+  .item-question{font-size:.95rem}
+  .scale-btn{padding:.5rem .75rem}
+  .scale-lbl{font-size:.82rem}
   .tri-num{width:26px;height:26px;font-size:.72rem}
 }
 </style>
 </head>
 <body>
 <div id="app"></div>
-<div class="submitting-overlay" id="submitting"><div class="spinner"></div><div class="spinner-text">Calculating scores…</div></div>
+<div class="submitting-overlay" id="submitting"><div class="spinner"></div><div class="spinner-text">Calculating scores\u2026</div></div>
 <script>
 const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyBSERsuSazVvleaRECUIzPkWnFR8v_Vha-Ltkex1c0HR4wMSXPHOYVav4HuWyHdap9/exec';
 const SURVEY_CONFIG={
   title:'Self-Discovery Index',
-  items_per_page:5,
-  demographics:[],
   items:[
-    {id:'item_01',factor:'FD',text:'How true is it that you dominate your competition in everything you do?',labels:['Not true','Slightly true','Somewhat true','Quite true','Very true','Completely true']},
-    {id:'item_02',factor:'IM',text:'Do you conceal your true intentions behind a friendly and harmless face?',labels:['Not true','Slightly true','Somewhat true','Quite true','Very true','Completely true']},
-    {id:'item_03',factor:'FD',text:'Do you often lead people into situations with you that they think are dangerous?',labels:['Not like me','Slightly like me','Somewhat like me','Quite like me','Very much like me','Completely like me']},
-    {id:'item_04',factor:'AS',text:'How many different kinds of crime have you committed?',labels:['None','One kind','Two kinds','Three kinds','Four kinds','Five or more kinds']},
-    {id:'item_05',factor:'FD',text:"Do you have the audacity to pull things off that others wouldn\u2019t dream of trying?",labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_06',factor:'UV',text:'How often do you ask the cashier if you can pay more than what your groceries cost?',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_07',factor:'FD',text:'Do you have an ability to \u201cturn on the charisma\u201d that makes getting hired a walk in the park?',labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_08',factor:'AS',text:"If you found someone\u2019s credit card on the floor, how likely are you to spend money on it?",labels:['Not likely','Slightly likely','Somewhat likely','Quite likely','Very likely','Extremely likely']},
-    {id:'item_09',factor:'IM',text:'Can you get people to do what you want without them ever knowing?',labels:['Not able','Slightly able','Somewhat able','Quite able','Very able','Completely able']},
-    {id:'item_10',factor:'FD',text:"How confidently do you deliver advice when you have no idea what you\u2019re talking about?",labels:['Not confidently','Slightly confidently','Somewhat confidently','Quite confidently','Very confidently','Completely confidently']},
-    {id:'item_11',factor:'AS',text:"How true is it that you don\u2019t care whether something you do is illegal or not?",labels:['Not true','Slightly true','Somewhat true','Quite true','Very true','Completely true']},
-    {id:'item_12',factor:'FD',text:'How superficially charming are you?',labels:['Not charming','Slightly charming','Somewhat charming','Quite charming','Very charming','Extremely charming']},
-    {id:'item_13',factor:'IM',text:'Can you adopt a false persona to con others?',labels:['Not true','Slightly true','Somewhat true','Quite true','Very true','Completely true']},
-    {id:'item_14',factor:'FD',text:'How easy is it for you to dominate basically any social situation?',labels:['Not easy','Slightly easy','Somewhat easy','Quite easy','Very easy','Extremely easy']},
-    {id:'item_15',factor:'UV',reverse:true,text:'Have you ever downloaded or streamed pirated tv shows, movies, or music?',labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_16',factor:'IM',text:"How quickly can you get people to trust you when they shouldn\u2019t?",labels:['Not quickly','Slightly quickly','Somewhat quickly','Quite quickly','Very quickly','Extremely quickly']},
-    {id:'item_17',factor:'FD',text:'How much confidence do you project right after making an utter fool of yourself in a social setting?',labels:['None','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_18',factor:'IM',text:'How calm do you feel looking someone in the eye and telling an outright lie?',labels:['Not calm','Slightly calm','Somewhat calm','Quite calm','Very calm','Completely calm']},
-    {id:'item_19',factor:'FD',text:'How true is it that you can shape first impressions so people are in awe of you?',labels:['Not true','Slightly true','Somewhat true','Quite true','Very true','Completely true']},
-    {id:'item_20',factor:'AS',text:'How often do you break the law?',labels:['Not at all often','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_21',factor:'UV',reverse:true,text:"Have you ever fantasized about someone you weren\u2019t in a relationship with?",labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_22',factor:'IM',text:'How skilled of a manipulator are you?',labels:["I\u2019m not",'Slightly skilled','Somewhat skilled','Quite skilled','Very skilled','Extremely skilled']},
-    {id:'item_23',factor:'FD',text:"How brazenly do you walk into places you don\u2019t belong, as if you were invited?",labels:['Not brazenly','Slightly brazenly','Somewhat brazenly','Quite brazenly','Very brazenly','Completely brazenly']},
-    {id:'item_24',factor:'AS',text:'How often do you drive drunk or high?',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_25',factor:'FD',text:'Can you talk your way into basically any situation you want?',labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_26',factor:'IM',text:'How naturally does cheating at things come to you?',labels:['Not naturally','Slightly naturally','Somewhat naturally','Quite naturally','Very naturally','Completely naturally']},
-    {id:'item_27',factor:'AS',text:'How often do you shoplift?',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_28',factor:'FD',text:'How often do you approach total strangers in public and charm them for no reason?',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_29',factor:'IM',text:'How good would you be at scamming someone?',labels:['Not good','Slightly good','Somewhat good','Quite good','Very good','Extremely good']},
-    {id:'item_30',factor:'FD',text:'How many bold things have you done shamelessly in public?',labels:['None','One or two things','A handful of things','Quite a few things','Many things','A great many things']},
-    {id:'item_31',factor:'UV',text:'Do you always tell the truth?',labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_32',factor:'FD',text:'How often do you charm random strangers for no reason?',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
-    {id:'item_33',factor:'IM',text:'Can you trick people into believing almost anything?',labels:['No','Slightly','Somewhat','Quite','Very','Completely']},
-    {id:'item_34',factor:'FD',text:'How easily can you turn your charm on and off like a faucet?',labels:['Not easily','Slightly easily','Somewhat easily','Quite easily','Very easily','Completely easily']},
-    {id:'item_35',factor:'FD',text:'How often do you slick-talk others by letting complex words roll freely off your tongue?<br><span style="font-size:.85em;font-weight:400;font-style:italic">(words like petulancies, asininities, norepinephrinergic etc.)</span>',labels:['Never','Slightly often','Somewhat often','Quite often','Very often','Extremely often']},
+    {id:'FD1',factor:'FD',text:'…do you talk fast and slick using complex jargon?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS1',factor:'ISS',text:'…do you crave dangerous excitement?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA1',factor:'CR',text:'…have you always cycled through different friendships because you can’t feel emotional bonds?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM1',factor:'IM',text:'…can you get others to do what you want without them realising?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR1',factor:'IU',text:'…do you avoid paying back money you borrow?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA2',factor:'CR',text:'…can you do what you want without feeling guilty about it?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI1',factor:'AS',text:'…do you break the law?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD2',factor:'FD',text:'…can you convince people of anything?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS2',factor:'ISS',text:'…are you rebellious?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM2',factor:'IM',text:'…do you hide your true intentions behind a friendly and harmless face?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR2',factor:'IU',text:'…do you leave unfinished tasks for someone else to deal with?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD3',factor:'FD',text:'…are you intimidated around high-profile people?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA3',factor:'CR',text:'…do other people’s problems feel irrelevant to you?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS3',factor:'ISS',text:'…do you like wild, out of control parties?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI2',factor:'AS',text:'…have you committed property damage in a rage?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM3',factor:'IM',text:'…do you carefully cover your tracks to avoid being caught?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR3',factor:'IU',text:'…do you disregard your obligations to others?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ATT1',factor:'ATT',text:'…do you eat 30 pizzas a day?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA4',factor:'CR',text:'Suppose another person was getting the blame for something you did. To what extent would you feel comfortable sitting back and letting that happen?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD4',factor:'FD',text:'…does your ability to “turn on the charisma” make getting hired a walk in the park for you?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI3',factor:'AS',text:'…do you shoplift?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM4',factor:'IM',text:'…can you calmly look anyone in the eye while telling a blatant lie?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS4',factor:'ISS',text:'…do you like using drugs?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA5',factor:'CR',text:'…would you feel fine if you accidentally injured another person?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS5',factor:'ISS',text:'…do you disregard potential future consequences?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD5',factor:'FD',text:'…do you find it easy to dominate social situations?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'OC1',factor:'OC',text:'…do you know what “antigrident” means?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR4',factor:'IU',text:'…are you reckless with money?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS6',factor:'ISS',text:'…are you motivated by pleasure and self-indulgence?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM5',factor:'IM',text:'…do you exploit people’s ignorance?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI4',factor:'AS',text:'…do you often drive drunk or high?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA6',factor:'CR',text:'…is it true that you feel no obligation to take accountability for your actions?',labels:['False, not true','True to a slight extent','True to a moderate extent','True to a considerable extent','True to a complete extent']},
+    {id:'FILL1',factor:'FILL',text:'…do you think drug sniffer dogs should be punished for snitching?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMD1',factor:'IMD',text:'…have you fantasized about a person that wasn’t your partner?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD6',factor:'FD',text:'…do you approach strangers in public and charm them for no reason?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS7',factor:'ISS',text:'…do you like taking risks?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM6',factor:'IM',text:'…do you find that lying feels as easy as telling the truth?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMFB1',factor:'IMFB',text:'…is it true that you have never cried?',labels:['False, not true','True to a slight extent','True to a moderate extent','True to a considerable extent','True to a complete extent']},
+    {id:'IRR5',factor:'IU',text:'…have you discarded bills or fines even though you could have paid?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD7',factor:'FD',text:'…can you shape first impressions so people are in awe of you?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA7',factor:'CR',text:'…can you be a ruthless person?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS8',factor:'ISS',text:'…do you seek out danger just for the thrill of it?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM7',factor:'IM',text:'…do you find it fun to push people’s buttons?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI5',factor:'AS',text:'…do you vandalise public property?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR6',factor:'IU',text:'…have you lived off someone else’s dime even though you could pay?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD8',factor:'FD',text:'…do you have the audacity to pull off things others would feel ashamed to try?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS9',factor:'ISS',text:'…do you like having random sex with people you don’t know?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM8',factor:'IM',text:'…can you get people to trust you when they shouldn’t?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ATT2',factor:'ATT',text:'…are you a close, personal friend of the Prime Minister of Zanzibar?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA8',factor:'CR',text:'…even if it will hurt others, do you still go after what you want?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'OC2',factor:'OC',text:'…are you educated in social gating dynamics?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI6',factor:'AS',text:'…do you get into fist fights? (not including sport)',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS10',factor:'ISS',text:'…does “live fast, die young” describe your lifestyle?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM9',factor:'IM',text:'…can you adopt a false persona to con others?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD9',factor:'FD',text:'…are you a force to be reckoned with?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR7',factor:'IU',text:'…do you behave irresponsibly at work?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMD2',factor:'IMD',text:'…is it true that you have viewed pornographic material?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI7',factor:'AS',text:'…have you stolen from someone behind their back?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD10',factor:'FD',text:'…can you turn your charm on and off like a tap?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA9',factor:'CR',text:'…can you be cold-blooded to others?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR8',factor:'IU',text:'…do you ignore rules?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM10',factor:'IM',text:'…are you proud to call yourself a cunning, devious person?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ATT3',factor:'ATT',text:'…do you think a black lab is a better gift for a child than a meth lab?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA10',factor:'CR',text:'…could you ignore someone in distress?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD11',factor:'FD',text:'…would you make a captivating cult leader?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS11',factor:'ISS',text:'…do you abandon plans based on what feels good in the moment?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM11',factor:'IM',text:'…have you used a false name to get what you wanted?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR9',factor:'IU',text:'…have you drifted through life with no real long-term plan?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA11',factor:'CR',text:'…are you willing to step on others to get what you want?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD12',factor:'FD',text:'…do you brazenly walk into places you don’t belong?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS12',factor:'ISS',text:'…have you left commitments (jobs, relationships, etc.) on little more than a whim?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI8',factor:'AS',text:'…do you get a “thrill” from pulling off a crime?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'OC3',factor:'OC',text:'…are you familiar with epicentral charisma?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA12',factor:'CR',text:'…do you feel unaffected by a friend’s pain?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD13',factor:'FD',text:'…do you lead others into situations they believe are scary?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS13',factor:'ISS',text:'…do you have a low tolerance for boredom?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ATT4',factor:'ATT',text:'…do you shave your legs with nothing more than a cheese grater and sheer determination?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM12',factor:'IM',text:'…are you a manipulator at heart?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI9',factor:'AS',text:'…have you trespassed?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMFB2',factor:'IMFB',text:'…is it true that you have had sex with every person you ever wanted?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR10',factor:'IU',text:'…do you get resources from others without putting in effort to contribute?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD14',factor:'FD',text:'…can you confidently deliver advice when you have no idea what you’re talking about?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA13',factor:'CR',text:'…could you drop a friend and never think of them again?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM13',factor:'IM',text:'…do you have a talent for scamming people?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMD3',factor:'IMD',text:'…is it true that you have downloaded or watched tv shows, movies, or music without paying for them?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI10',factor:'AS',text:'…have you assaulted someone?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR11',factor:'IU',text:'…do you not bother to plan ahead?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMFB3',factor:'IMFB',text:'…would you rather be hated more than liked?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS14',factor:'ISS',text:'…are you impulsive?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA14',factor:'CR',text:'…do you lack remorse?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD15',factor:'FD',text:'…do you dominate your peers in almost everything you try?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IMFB4',factor:'IMFB',text:'…is it true that you have never felt an emotion?',labels:['False, not true','True to a slight extent','True to a moderate extent','True to a considerable extent','True to a complete extent']},
+    {id:'IRR12',factor:'IU',text:'…have you mastered the art of freeloading off others?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI11',factor:'AS',text:'…have you broken into a building or vehicle?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM14',factor:'IM',text:'…do you tell people what they want to hear in order to get money, sex or status?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS15',factor:'ISS',text:'…do you act without thinking in the moment?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA15',factor:'CR',text:'…do you not care if your actions hurt others?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR13',factor:'IU',text:'…do you behave recklessly?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ATT5',factor:'ATT',text:'…do you think it should be illegal to urinate in private?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA16',factor:'CR',text:'…do you never feel sorry on the inside?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM15',factor:'IM',text:'…does cheating at things come naturally to you?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR14',factor:'IU',text:'…do you make promises that you don’t keep?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI12',factor:'AS',text:'…have you robbed someone face-to-face?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'FD16',factor:'FD',text:'…are you able to talk your way past almost any person?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA17',factor:'CR',text:'…does other people’s welfare fail to register for you emotionally?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'SS16',factor:'ISS',text:'…have you picked up and moved to a new city with no set job or plan?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IPM16',factor:'IM',text:'…are you an exploiter of loopholes?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'IRR15',factor:'IU',text:'…do you disregard tasks that you’re expected to take care of?',labels:['To no extent at all','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'ANTI13',factor:'AS',text:'…have you committed a range of different crimes? How many?<br><span style="font-size:.85em;font-weight:400;font-style:italic">(e.g. theft, drug, fraud, hacking, tax evasion, weapons, perjury, assault, fake ID, trespass, dangerous driving, espionage, etc.)</span>',labels:['No crimes','One kind of crime','Two kinds of crime','Three kinds of crime','Four or more kinds of crime']}
   ]
 };
 
-// Dimension definitions
-var DIMENSIONS = {
-  FD: {name:'Fearless Dominance', desc:'This reflects a tendency towards brazen social confidence, emotional unflappability, and persuasive charm. High scorers tend to be socially dominant, charismatic, and act with an unusual level of audacity that others may find either compelling or intimidating. They\u2019re the kind that could sell shaving cream to the Taliban.', barClass:'dim-bar-fd'},
-  IM: {name:'Interpersonal Manipulation', desc:'Reflects your comfort with and ability to lie, manipulate, and exploit the trust and/or ignorance of others. High scorers are likely to use deliberate deceit, strategic self-presentation, and evasive tactics in pursuit of their goals.', barClass:'dim-bar-im'},
-  AS: {name:'Antisocial Behaviour', desc:'Measures engagement in rule-breaking, illegal, or norm-violating behaviour. High scorers report more frequent law-breaking and disregard for social rules.', barClass:'dim-bar-as'},
-  UV: {name:'Impression Management', desc:'Indicates how much your response pattern may have been shaped by a desire to present yourself in a particular way. Higher scores suggest your other results may be less reflective of how you actually are.', barClass:'dim-bar-uv', cardClass:'dim-card-uv'}
+var DIMS={
+  FD:{name:'Fearless Dominance',desc:'Reflects a tendency towards brazen social confidence, emotional unflappability, and persuasive charm. High scorers tend to be socially dominant, charismatic, and act with an unusual level of audacity that others may find either compelling or intimidating.',barClass:'dim-bar-fd'},
+  IM:{name:'Interpersonal Manipulation',desc:'Reflects your comfort with and ability to lie, manipulate, and exploit the trust and/or ignorance of others. High scorers are likely to use deliberate deceit, strategic self-presentation, and evasive tactics in pursuit of their goals, whether that be for themself or others.',barClass:'dim-bar-im'},
+  CR:{name:'Callous Affect',desc:'Reflects shallow emotional experience, low empathy, and a limited capacity for guilt or remorse. High scorers tend to be emotionally cold, unmoved by the suffering of others, and relatively unconcerned with the harm their actions may cause.',barClass:'dim-bar-cr'},
+  ISS:{name:'Impulsivity / Need for Stimulation',desc:'Reflects a preference for excitement, novelty, and immediate reward, along with difficulty tolerating boredom or restraint. High scorers tend to act rashly, seek stimulation and risk, and make spur-of-the-moment decisions without fully considering long-term consequences.',barClass:'dim-bar-iss'},
+  IU:{name:'Irresponsibility / Parasitism',desc:'Reflects unreliability, failure to honour obligations, and a tendency to depend on others for support or resources. High scorers tend to lack long-term goals, neglect commitments, and rely on others in opportunistic or self-serving ways rather than sustaining consistent effort themselves.',barClass:'dim-bar-iu'},
+  AS:{name:'Antisocial Behaviour',desc:'Measures engagement in rule-breaking and illegal behaviour. High scorers report more frequent law-breaking and disregard for social rules.',barClass:'dim-bar-as'}
 };
 
-// ============================================================
-//  ENGINE
-// ============================================================
-const state={currentPage:0,responses:{},demographics:{},startTime:null,pageStartTimes:[],pageTimes:[],respondentId:'R'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ipData:{}};
+var CORE_FACTORS=['FD','IM','CR','ISS','IU','AS'];
+var ITEM_START=2;
+var TOTAL=SURVEY_CONFIG.items.length;
+function getThankyou(){return ITEM_START+TOTAL}
 
-// Known VPN/proxy provider keywords to check against org/ISP field
+var state={currentPage:0,responses:{},startTime:null,pageStartTimes:[],pageTimes:[],respondentId:'R'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ipData:{},firstVisit:true,slideDir:'fwd'};
+
 var VPN_KEYWORDS=['vpn','nord','express','surfshark','cyberghost','private internet','mullvad','proton','pia ','windscribe','tunnelbear','ivpn','hide.me','hotspot shield','ipvanish','purevpn','torguard','astrill','vypr','zenmate','strongvpn','datacenter','hosting','cloud','server','hetzner','digitalocean','ovh','amazon','aws','linode','vultr','choopa','m247','datacamp','psychz','leaseweb','quadranet','cogent','zscaler'];
-
 (function(){
-  // Primary: ipapi.co (free, CORS, HTTPS, 1000/day)
   fetch('https://ipapi.co/json/')
-    .then(function(r){if(!r.ok)throw new Error('ipapi.co '+r.status);return r.json()})
-    .then(function(d){
-      var org=(d.org||'').toLowerCase();
-      var isVpn=VPN_KEYWORDS.some(function(kw){return org.indexOf(kw)!==-1});
-      state.ipData={
-        ip:d.ip||'',
-        country:d.country_name||'',
-        region:d.region||'',
-        city:d.city||'',
-        isp:d.org||'',
-        is_vpn:isVpn
-      };
-    })
-    .catch(function(e){
-      console.warn('IP lookup failed:',e);
-      // Fallback: try ipapi.is
-      fetch('https://api.ipapi.is/')
-        .then(function(r){return r.json()})
-        .then(function(d){
-          state.ipData={
-            ip:d.ip||'',
-            country:(d.location&&d.location.country)||'',
-            region:(d.location&&d.location.state)||'',
-            city:(d.location&&d.location.city)||'',
-            isp:(d.company&&d.company.name)||d.asn&&d.asn.org||'',
-            is_vpn:d.is_vpn||d.is_proxy||d.is_datacenter||d.is_tor||false
-          };
-        })
-        .catch(function(){state.ipData={ip:'unavailable',is_vpn:false}});
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+    .then(function(d){var org=(d.org||'').toLowerCase();state.ipData={ip:d.ip||'',country:d.country_name||'',region:d.region||'',city:d.city||'',isp:d.org||'',is_vpn:VPN_KEYWORDS.some(function(kw){return org.indexOf(kw)!==-1})}})
+    .catch(function(){
+      fetch('https://api.ipapi.is/').then(function(r){return r.json()}).then(function(d){state.ipData={ip:d.ip||'',country:(d.location&&d.location.country)||'',region:(d.location&&d.location.state)||'',city:(d.location&&d.location.city)||'',isp:(d.company&&d.company.name)||'',is_vpn:d.is_vpn||d.is_proxy||d.is_datacenter||d.is_tor||false}}).catch(function(){state.ipData={ip:'unavailable',is_vpn:false}});
     });
 })();
-
-function isMobile(){return window.innerWidth<=640}
-function getPerPage(){return isMobile()?1:SURVEY_CONFIG.items_per_page}
-function getTotalItemPages(){return Math.ceil(SURVEY_CONFIG.items.length/getPerPage())}
-var ITEM_START=2;
-function getThankyou(){return ITEM_START+getTotalItemPages()}
-
-var lastPerPage=getPerPage();
-window.addEventListener('resize',function(){
-  var newPP=getPerPage();
-  if(newPP!==lastPerPage&&state.currentPage>=ITEM_START&&state.currentPage<getThankyou()){
-    if(newPP===1){
-      var firstU=-1;
-      for(var i=0;i<SURVEY_CONFIG.items.length;i++){if(state.responses[SURVEY_CONFIG.items[i].id]===undefined){firstU=i;break}}
-      if(firstU>=0){lastPerPage=newPP;state.currentPage=ITEM_START+firstU;render();return}
-    }
-    var oldPI=state.currentPage-ITEM_START;
-    var firstItem=oldPI*lastPerPage;
-    lastPerPage=newPP;
-    state.currentPage=ITEM_START+Math.floor(firstItem/newPP);
-    render();
-  } else {lastPerPage=newPP}
-});
 
 function render(){
   var app=document.getElementById('app'),p=state.currentPage,html='';
   document.body.classList.remove('on-results');
-  if(p===0){html=renderWelcome()}
-  else if(p===1){html=renderExplainer()}
-  else if(p>=ITEM_START&&p<getThankyou()){
-    var pi=p-ITEM_START,progress=Math.round(((pi+1)/getTotalItemPages())*100);
-    var progressLabel=isMobile()?'Question '+(pi*getPerPage()+1)+' of '+SURVEY_CONFIG.items.length:'Page '+(pi+1)+' of '+getTotalItemPages();
-    html='<div class="survey-shell"><div class="progress-container"><div class="progress-top"><span class="progress-title">'+progressLabel+'</span><span class="progress-pct">'+progress+'%</span></div><div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div></div>'+renderItemPage(pi)+'</div>';
-  } else if(p===getThankyou()){
-    document.body.classList.add('on-results');
-    html=renderResults();
-  }
+  if(p===0)html=renderWelcome();
+  else if(p===1)html=renderExplainer();
+  else if(p>=ITEM_START&&p<getThankyou())html=renderItemPage(p-ITEM_START);
+  else if(p===getThankyou()){document.body.classList.add('on-results');html=renderResults()}
   app.innerHTML=html;attachListeners();
-  if(p>0&&!isMobile())setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'})},50);
-  // Animate result bars after render
-  if(p===getThankyou()){setTimeout(animateResults,100)}
+  if(p===getThankyou())setTimeout(animateResults,100);
 }
 
 function renderWelcome(){
-  return '<div class="hero"><div class="hero-badge">Personality</div><h1>Self-Discovery Index</h1><p class="hero-sub">This assessment explores aspects of your personality that standard tests often overlook.</p><p class="hero-sub" style="margin-top:0.75rem">There are no right or wrong answers. Answer honestly based on how you have been most of the time, in most situations, over the past 5 years.</p><div class="hero-meta"><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>'+SURVEY_CONFIG.items.length+' questions</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>~4 minutes</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Anonymous</div></div><button class="btn-hero" id="btnStart">Begin assessment</button></div>';
+  return '<div class="hero"><div class="hero-badge">Personality</div><h1>Self-Discovery Index</h1><p class="hero-sub">This assessment explores aspects of your personality that standard tests often overlook.</p><p class="hero-sub" style="margin-top:0.75rem">There are no right or wrong answers. Answer honestly based on how you have been most of the time, in most situations, over the past 5 years.</p><div class="hero-meta"><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>'+TOTAL+' questions</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>~15 minutes</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Anonymous</div></div><button class="btn-hero" id="btnStart">Begin assessment</button></div>';
 }
 
 function renderExplainer(){
-  return '<div class="explainer"><div class="explainer-card">'
-    +'<h2>How the scale works</h2>'
-    +'<p class="explainer-sub">Each question uses a simple scale from <strong>0</strong> to <strong>5</strong>.</p>'
-    +'<div class="explainer-demo">'
-    +'<div class="explainer-label">\u201cHow comfortable are you with\u2026?\u201d</div>'
-    +'<div class="tri-container">'
-    +'<div class="tri-numbers"><div class="tri-num">0</div><div class="tri-num">1</div><div class="tri-num">2</div><div class="tri-num">3</div><div class="tri-num">4</div><div class="tri-num">5</div></div>'
-    +'<div class="tri-shape"><div class="tri-shape-inner"></div></div>'
-    +'<div class="tri-labels"><span class="tri-label-l">Not at all comfortable</span><span class="tri-label-r">Completely comfortable</span></div>'
-    +'</div></div>'
-    +'<p class="explainer-note">The scale measures <strong>how much</strong> of something applies to you \u2014 not whether you agree or disagree. Zero means none at all, five means as much as possible.</p>'
-    +'<button class="btn-hero" id="btnGotIt">Got it, let\u2019s go</button>'
-    +'</div></div>';
+  return '<div class="explainer"><div class="explainer-card"><h2>How the scale works</h2><p class="explainer-sub">Each question uses a simple scale from <strong>0</strong> to <strong>4</strong>.</p><div class="explainer-demo"><div class="explainer-label">\u201cTo what extent\u2026?\u201d</div><div class="tri-container"><div class="tri-numbers"><div class="tri-num">0</div><div class="tri-num">1</div><div class="tri-num">2</div><div class="tri-num">3</div><div class="tri-num">4</div></div><div class="tri-shape"><div class="tri-shape-inner"></div></div><div class="tri-labels"><span class="tri-label-l">Not at all</span><span class="tri-label-r">Completely</span></div></div></div><p class="explainer-note">The scale measures <strong>how much</strong> of something applies to you \u2014 not whether you agree or disagree. Zero means none at all, four means as much as possible.</p><button class="btn-hero" id="btnGotIt">Got it, let\u2019s go</button></div></div>';
 }
 
-function renderItemPage(pageIndex){
-  var start=pageIndex*getPerPage(),end=Math.min(start+getPerPage(),SURVEY_CONFIG.items.length);
-  var pageItems=SURVEY_CONFIG.items.slice(start,end),isLast=end>=SURVEY_CONFIG.items.length;
-  var html='<div class="page active"><div class="error-msg" id="itemError"></div>';
-  pageItems.forEach(function(item,i){
-    var gi=start+i,selected=state.responses[item.id],answered=selected!==undefined,scaleHtml='';
-    item.labels.forEach(function(label,v){
-      var val=v;
-      var sel=selected===val?' selected':'';
-      scaleHtml+='<div class="scale-btn'+sel+'" data-item="'+item.id+'" data-value="'+val+'"><div class="scale-num">'+val+'</div><div class="scale-lbl">'+label+'</div></div>';
-    });
-    html+='<div class="item-card'+(answered?' answered':'')+'" id="block-'+item.id+'"><div class="item-counter">Question '+(gi+1)+' of '+SURVEY_CONFIG.items.length+'</div><div class="item-question">'+item.text+'</div><div class="scale-wrap">'+scaleHtml+'</div></div>';
+function renderItemPage(idx){
+  var item=SURVEY_CONFIG.items[idx];
+  var selected=state.responses[item.id];
+  var progress=Math.round(((idx+1)/TOTAL)*100);
+  var isFirst=idx===0&&state.firstVisit;
+  if(isFirst)state.firstVisit=false;
+  var isLast=idx>=TOTAL-1;
+
+  var isSpecial=item.text.indexOf('Suppose ')===0;
+  var questionHtml;
+  if(isSpecial){
+    var parts=item.text.split('To what extent ');
+    questionHtml='<div class="item-question-special">'+parts[0]+'</div><div class="item-question-special-main">To what extent '+parts[1]+'</div>';
+  } else {
+    questionHtml='<div class="item-question">'+item.text+'</div>';
+  }
+
+  var labels=item.labels;
+  var scaleHtml='';
+  labels.forEach(function(label,v){
+    var sel=selected===v?' selected':'';
+    scaleHtml+='<div class="scale-btn'+sel+'" data-item="'+item.id+'" data-value="'+v+'"><div class="scale-num">'+v+'</div><div class="scale-lbl">'+label+'</div></div>';
   });
+
+  var headerClass=isSpecial?' hidden':'';
+  if(isFirst)headerClass+=' first-load';
+  var questionSlideClass=isFirst?'first-load':(state.slideDir==='bwd'?'slide-bwd':'slide-fwd');
+
+  var html='<div class="survey-shell">';
+  html+='<div class="progress-container"><div class="progress-top"><span class="progress-title">Question '+(idx+1)+' of '+TOTAL+'</span><span class="progress-pct">'+progress+'%</span></div><div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div></div>';
+  html+='<div class="slide-area">';
+  html+='<div class="text-section">';
+  html+='<div class="extent-header'+headerClass+'">To what extent\u2026</div>';
+  html+='<div class="question-slide '+questionSlideClass+'">'+questionHtml+'</div>';
+  html+='<div class="error-msg" id="itemError"></div>';
+  html+='</div>';
+  html+='<div class="scale-section"><div class="scale-wrap">'+scaleHtml+'</div></div>';
+  html+='</div>';
   html+='<div class="nav-row">';
-  html+=state.currentPage>ITEM_START?'<button class="btn-nav btn-back" id="btnBack">Back</button>':'<div></div>';
-  html+='<button class="btn-nav btn-next" id="btnNext">'+(isLast?'Submit':'Continue')+'</button></div></div>';
+  html+='<button class="btn-nav btn-back" id="btnBack">Back</button>';
+  html+='<button class="btn-nav btn-next" id="btnNext">'+(isLast?'Submit':'Continue')+'</button>';
+  html+='</div></div>';
   return html;
 }
 
 function calcScores(){
-  var scores={};
-  var counts={};
-  ['FD','IM','AS','UV'].forEach(function(f){scores[f]=0;counts[f]=0});
+  var scores={},counts={};
+  CORE_FACTORS.forEach(function(f){scores[f]=0;counts[f]=0});
   SURVEY_CONFIG.items.forEach(function(item){
-    var f=item.factor;
-    if(!f||!scores.hasOwnProperty(f))return;
-    var raw=state.responses[item.id];
-    if(raw===undefined)return;
-    var val=item.reverse?5-raw:raw;
-    scores[f]+=val;
-    counts[f]++;
+    if(CORE_FACTORS.indexOf(item.factor)===-1)return;
+    var raw=state.responses[item.id];if(raw===undefined)return;
+    scores[item.factor]+=raw;counts[item.factor]++;
   });
   var pcts={};
-  ['FD','IM','AS','UV'].forEach(function(f){
-    pcts[f]=counts[f]>0?Math.round((scores[f]/(counts[f]*5))*100):0;
-  });
+  CORE_FACTORS.forEach(function(f){pcts[f]=counts[f]>0?Math.round((scores[f]/(counts[f]*4))*100):0});
   return pcts;
 }
 
 function renderResults(){
   var pcts=calcScores();
-  var html='<div class="results">';
-  html+='<h1>Your Results</h1>';
-  html+='<p class="results-sub">Here\u2019s how you scored across three dimensions of interpersonal style.</p>';
-  ['FD','IM','AS','UV'].forEach(function(key){
-    var dim=DIMENSIONS[key];
-    var pct=pcts[key];
-    html+='<div class="dim-card '+(dim.cardClass||'')+'">';
-    html+='<div class="dim-header"><span class="dim-name">'+dim.name+'</span><span class="dim-pct" id="pct-'+key+'">'+pct+'%</span></div>';
-    html+='<div class="dim-desc">'+dim.desc+'</div>';
-    html+='<div class="dim-bar-track"><div class="dim-bar-fill '+dim.barClass+'" id="bar-'+key+'" style="width:0%"></div></div>';
-    html+='</div>';
-  });
-  html+='<div class="results-id">Respondent ID: <strong>'+state.respondentId+'</strong></div>';
+  var html='<div class="results"><h1>Your Results</h1><p class="results-sub">Here\u2019s how you scored across six dimensions of personality.</p>';
+  CORE_FACTORS.forEach(function(key){var dim=DIMS[key];html+='<div class="dim-card"><div class="dim-header"><span class="dim-name">'+dim.name+'</span><span class="dim-pct">'+pcts[key]+'%</span></div><div class="dim-desc">'+dim.desc+'</div><div class="dim-bar-track"><div class="dim-bar-fill '+dim.barClass+'" id="bar-'+key+'" style="width:0%"></div></div></div>'});
   html+='</div>';
   return html;
 }
 
 function animateResults(){
   var pcts=calcScores();
-  ['FD','IM','AS','UV'].forEach(function(key){
-    var bar=document.getElementById('bar-'+key);
-    if(bar)bar.style.width=pcts[key]+'%';
-  });
+  CORE_FACTORS.forEach(function(key){var bar=document.getElementById('bar-'+key);if(bar)bar.style.width=pcts[key]+'%'});
 }
 
 function attachListeners(){
   var bs=document.getElementById('btnStart');
   if(bs)bs.addEventListener('click',function(){state.startTime=Date.now();state.currentPage=1;render()});
   var bg=document.getElementById('btnGotIt');
-  if(bg)bg.addEventListener('click',function(){state.pageStartTimes[ITEM_START]=Date.now();state.currentPage=ITEM_START;render()});
+  if(bg)bg.addEventListener('click',function(){state.slideDir='fwd';state.pageStartTimes[ITEM_START]=Date.now();state.currentPage=ITEM_START;render()});
   var bb=document.getElementById('btnBack');
-  if(bb)bb.addEventListener('click',function(){recordPageTime();state.currentPage--;state.pageStartTimes[state.currentPage]=Date.now();render()});
+  if(bb)bb.addEventListener('click',function(){
+    recordPageTime();state.slideDir='bwd';
+    if(state.currentPage===ITEM_START){state.currentPage=1;render();return}
+    state.currentPage--;state.pageStartTimes[state.currentPage]=Date.now();render();
+  });
   var bn=document.getElementById('btnNext');
   if(bn)bn.addEventListener('click',function(){
     if(state.currentPage>=ITEM_START&&state.currentPage<getThankyou()){
-      if(!validateItemPage())return;
+      if(!validateItem())return;
       if(state.currentPage===getThankyou()-1){recordPageTime();submitData();return}
     }
-    recordPageTime();state.currentPage++;state.pageStartTimes[state.currentPage]=Date.now();render();
+    recordPageTime();state.slideDir='fwd';state.currentPage++;state.pageStartTimes[state.currentPage]=Date.now();render();
   });
   document.querySelectorAll('.scale-btn').forEach(function(opt){
     opt.addEventListener('click',function(){
-      var itemId=opt.dataset.item,value=parseInt(opt.dataset.value);state.responses[itemId]=value;
+      var itemId=opt.dataset.item,value=parseInt(opt.dataset.value);
+      if(state.responses[itemId]===value){delete state.responses[itemId];opt.classList.remove('selected');return}
+      state.responses[itemId]=value;
       document.querySelectorAll('.scale-btn[data-item="'+itemId+'"]').forEach(function(o){o.classList.remove('selected')});
       opt.classList.add('selected');
-      var block=document.getElementById('block-'+itemId);if(block){block.classList.remove('has-error');block.classList.add('answered')}
-      var pi=state.currentPage-ITEM_START,s=pi*getPerPage(),e=Math.min(s+getPerPage(),SURVEY_CONFIG.items.length);
-      if(SURVEY_CONFIG.items.slice(s,e).every(function(it){return state.responses[it.id]!==undefined})){var err=document.getElementById('itemError');if(err)err.classList.remove('visible')}
+      var err=document.getElementById('itemError');if(err)err.classList.remove('visible');
     });
   });
 }
 
 function recordPageTime(){var st=state.pageStartTimes[state.currentPage];if(st)state.pageTimes[state.currentPage]=Math.round((Date.now()-st)/100)/10;state.pageStartTimes[state.currentPage]=Date.now()}
 
-function validateItemPage(){
-  var pi=state.currentPage-ITEM_START,s=pi*getPerPage(),e=Math.min(s+getPerPage(),SURVEY_CONFIG.items.length);
-  var items=SURVEY_CONFIG.items.slice(s,e),ok=true,firstUnanswered=null;
-  items.forEach(function(item){
-    var bl=document.getElementById('block-'+item.id);
-    if(state.responses[item.id]===undefined){if(bl)bl.classList.add('has-error');if(!firstUnanswered)firstUnanswered=bl;ok=false}
-    else{if(bl)bl.classList.remove('has-error')}
-  });
-  if(!ok){
+function validateItem(){
+  var idx=state.currentPage-ITEM_START;
+  var item=SURVEY_CONFIG.items[idx];
+  if(state.responses[item.id]===undefined){
     var err=document.getElementById('itemError');
-    if(err){err.textContent=isMobile()?'Please answer before continuing.':'Please answer all questions on this page before continuing.';err.classList.add('visible')}
-    if(firstUnanswered&&!isMobile())firstUnanswered.scrollIntoView({behavior:'smooth',block:'center'});
+    if(err){err.textContent='Please answer before continuing.';err.classList.add('visible')}
+    return false;
   }
-  return ok;
+  return true;
 }
 
 async function submitData(){
   var overlay=document.getElementById('submitting');overlay.classList.add('visible');
   var totalTime=Math.round((Date.now()-state.startTime)/100)/10;
-  var desktopPages=Math.ceil(SURVEY_CONFIG.items.length/SURVEY_CONFIG.items_per_page);
-  var pp=getPerPage();
-  var itemPageTimes=[];
-  for(var g=0;g<desktopPages;g++){
-    var firstItem=g*SURVEY_CONFIG.items_per_page;
-    var lastItem=Math.min(firstItem+SURVEY_CONFIG.items_per_page,SURVEY_CONFIG.items.length)-1;
-    var groupTime=0,seenPages={};
-    for(var i=firstItem;i<=lastItem;i++){
-      var ap=ITEM_START+Math.floor(i/pp);
-      if(!seenPages[ap]){seenPages[ap]=true;groupTime+=state.pageTimes[ap]||0}
-    }
-    itemPageTimes.push(Math.round(groupTime*10)/10);
-  }
-  var payload={respondent_id:state.respondentId,total_time_seconds:totalTime,page_times:itemPageTimes,ip_address:state.ipData.ip||'',ip_country:state.ipData.country||'',ip_city:state.ipData.city||'',isp:state.ipData.isp||'',is_vpn_or_proxy:state.ipData.is_vpn?'YES':'NO',demographics:state.demographics,responses:state.responses};
-  console.log('Submitting payload:',JSON.stringify(payload,null,2));
+  // Per-item times
+  var itemTimes={};
+  SURVEY_CONFIG.items.forEach(function(item,i){
+    itemTimes[item.id]=state.pageTimes[ITEM_START+i]||0;
+  });
+  var payload={respondent_id:state.respondentId,total_time_seconds:totalTime,ip_address:state.ipData.ip||'',ip_country:state.ipData.country||'',ip_city:state.ipData.city||'',isp:state.ipData.isp||'',is_vpn_or_proxy:state.ipData.is_vpn?'YES':'NO',responses:state.responses,item_times:itemTimes};
   function goToResults(){overlay.classList.remove('visible');state.currentPage=getThankyou();render()}
   if(!GOOGLE_SCRIPT_URL||GOOGLE_SCRIPT_URL==='YOUR_GOOGLE_SCRIPT_URL_HERE'){goToResults();return}
   try{
@@ -443,7 +443,7 @@ async function submitData(){
     var input=document.createElement('input');input.type='hidden';input.name='payload';input.value=JSON.stringify(payload);
     form.appendChild(input);document.body.appendChild(form);form.submit();
     setTimeout(function(){try{document.body.removeChild(form);document.body.removeChild(iframe)}catch(e){}goToResults()},2000);
-  }catch(err){console.error('Submit error:',err);goToResults()}
+  }catch(err){goToResults()}
 }
 
 render();
