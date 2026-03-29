@@ -72,7 +72,7 @@ body.on-results{overflow:auto;touch-action:manipulation}
 .extent-header{font-family:var(--body);font-size:1.6rem;font-weight:600;text-align:center;color:var(--text);margin:0 0 .15rem;flex-shrink:0}
 .extent-header.hidden{display:none}
 .extent-header.first-load{opacity:0;animation:fadeIn .4s ease .5s forwards}
-.slide-area{flex:1;display:flex;flex-direction:column;justify-content:center}
+.slide-area{flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:15%}
 .content-anchor{position:relative}
 .text-section{position:absolute;bottom:100%;left:0;right:0;padding-bottom:.5rem}
 .scale-section{}
@@ -184,7 +184,7 @@ const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyBSERsuSazVvle
 var S1_ITEMS=[
     {id:'FD1',factor:'FD',text:'…do you talk fast and slick using complex jargon?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'SS1',factor:'ISS',text:'…do you crave dangerous excitement?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
-    {id:'CA1',factor:'CR',text:'…have you always cycled through different friendships because you can’t feel emotional bonds?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
+    {id:'CA1',factor:'CR',text:'…have you cycled through many friendships because you can’t feel emotional bonds?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IPM1',factor:'IM',text:'…can you get others to do what you want without them realizing?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'IRR1',factor:'IU',text:'…do you avoid paying back money you borrow?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
     {id:'CA2',factor:'CR',text:'…can you do whatever you want without feeling guilty about it?',labels:['To no extent','To a slight extent','To a moderate extent','To a considerable extent','To a complete extent']},
@@ -376,7 +376,7 @@ function render(){
 }
 
 function renderWelcome(){
-  return '<div class="hero"><div class="hero-badge">Personality</div><h1>Prototypical Personality Scale</h1><p class="hero-sub">This assessment explores personality traits that standard tests overlook.</p><p class="hero-sub" style="margin-top:0.75rem"><strong>This test is free and anonymous.</strong></p><p class="hero-sub" style="margin-top:0.75rem">Answer based on how you have been most of the time, in most situations, over the past 5 years.</p><p class="hero-sub" style="margin-top:0.75rem">Be honest, take your time, and have fun.</p><div class="hero-meta"><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>99 questions</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>~10 minutes</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Anonymous</div></div><button class="btn-hero" id="btnStart">Begin assessment</button></div>';
+  return '<div class="hero"><div class="hero-badge">Personality</div><h1>Prototypical Personality Scale</h1><p class="hero-sub">This assessment explores personality traits<br>that standard tests overlook.</p><p class="hero-sub" style="margin-top:0.75rem"><strong>This test is free and anonymous.</strong></p><p class="hero-sub" style="margin-top:0.75rem">Answer based on how you have been most of the time, in most situations, over the past 5 years.</p><p class="hero-sub" style="margin-top:0.75rem">Be honest, take your time, and have fun.</p><div class="hero-meta"><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>99 questions</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>~10 minutes</div><div class="hero-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Anonymous</div></div><button class="btn-hero" id="btnStart">Begin assessment</button></div>';
 }
 
 function renderExplainer(){
